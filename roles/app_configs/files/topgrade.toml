@@ -21,7 +21,7 @@ pre_sudo = false
 ignore_failures = ["asdf"]
 
 # List of remote machines with Topgrade installed on them
-# remote_topgrades = ["10.0.0.68"]
+# remote_topgrades = ["127.0.0.1"]
 
 # Path to Topgrade executable on remote machines
 # remote_topgrade_path = ".cargo/bin/topgrade"
