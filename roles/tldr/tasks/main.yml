@@ -1,0 +1,10 @@
+---
+- name: Ensure TLDR is installed via brew
+  community.general.homebrew:
+    name: tldr
+    state: present
+
+- name: Update TLDR cache
+  ansible.builtin.shell: tldr --update
+  changed_when: false
+  failed_when: false

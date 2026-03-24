@@ -1,0 +1,5 @@
+---
+- name: Update PowerShell Modules
+  ansible.builtin.shell: pwsh -Command "Update-Module -Name * -ErrorAction SilentlyContinue"
+  changed_when: false
+  failed_when: false

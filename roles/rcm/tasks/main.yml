@@ -1,0 +1,10 @@
+---
+- name: Ensure RCM is installed via brew
+  community.general.homebrew:
+    name: rcm
+    state: present
+
+- name: Run Rcup to symlink dotfiles
+  ansible.builtin.shell: rcup -f
+  changed_when: false
+  failed_when: false

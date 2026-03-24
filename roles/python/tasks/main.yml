@@ -1,0 +1,11 @@
+---
+- name: Install Pipx packages
+  ansible.builtin.shell: pipx install {{ item }}
+  loop: "{{ pipx_packages }}"
+  failed_when: false
+  changed_when: false
+
+- name: Upgrade all pip3 packages
+  ansible.builtin.shell: pip3 list --outdated --format=freeze | cut -d = -f 1 | xargs -n1 pip3 install -U
+  changed_when: false
+  failed_when: false

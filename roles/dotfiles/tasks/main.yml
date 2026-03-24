@@ -1,0 +1,49 @@
+---
+- name: Ensure Oh My Zsh is installed
+  ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  args:
+    creates: ~/.oh-my-zsh
+
+- name: Ensure dotfiles are symlinked
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "~/{{ item.dest }}"
+    state: link
+    force: true
+  loop:
+    - { src: 'zshrc', dest: '.zshrc' }
+    - { src: 'gitconfig', dest: '.gitconfig' }
+
+- name: Ensure custom zsh plugins directory exists
+  ansible.builtin.file:
+    path: ~/.oh-my-zsh/custom/plugins
+    state: directory
+    mode: '0755'
+
+- name: Add Zsh Autosuggestions to .zshrc
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    state: present
+  when: ansible_architecture == "arm64"
+
+- name: Add Zsh Autosuggestions to .zshrc (Intel)
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    state: present
+  when: ansible_architecture == "x86_64"
+
+- name: Add Zsh Syntax Highlighting to .zshrc
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    state: present
+  when: ansible_architecture == "arm64"
+
+- name: Add Zsh Syntax Highlighting to .zshrc (Intel)
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    state: present
+  when: ansible_architecture == "x86_64"

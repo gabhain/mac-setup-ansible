@@ -1,0 +1,22 @@
+---
+- name: Configure macOS Defaults
+  community.general.osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  loop: "{{ macos_defaults }}"
+  register: defaults_changed
+
+- name: Restart Finder
+  ansible.builtin.command: killall Finder
+  when: defaults_changed.changed and ('com.apple.finder' in item.domain)
+  loop: "{{ macos_defaults }}"
+  ignore_errors: true
+
+- name: Restart Dock
+  ansible.builtin.command: killall Dock
+  when: defaults_changed.changed and ('com.apple.dock' in item.domain)
+  loop: "{{ macos_defaults }}"
+  ignore_errors: true

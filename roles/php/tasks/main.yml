@@ -1,0 +1,5 @@
+---
+- name: Update Composer Global Packages
+  ansible.builtin.shell: composer global update
+  changed_when: false
+  failed_when: false

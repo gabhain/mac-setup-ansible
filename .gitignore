@@ -1,0 +1,4 @@
+.DS_Store
+.ansible_cache
+*.retry
+retry_files_enabled = False

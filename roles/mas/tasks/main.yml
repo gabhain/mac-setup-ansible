@@ -1,0 +1,12 @@
+---
+- name: Ensure mas is installed
+  community.general.homebrew:
+    name: mas
+    state: present
+
+- name: Install Mac App Store Apps
+  community.general.mas:
+    id: "{{ item.id }}"
+    state: present
+  loop: "{{ mas_installed_apps }}"
+  ignore_errors: true
