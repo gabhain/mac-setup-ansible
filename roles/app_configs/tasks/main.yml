@@ -1,0 +1,54 @@
+---
+- name: Ensure .config directory exists
+  ansible.builtin.file:
+    path: ~/.config
+    state: directory
+    mode: '0755'
+
+- name: Ensure Neofetch configuration directory exists
+  ansible.builtin.file:
+    path: ~/.config/neofetch
+    state: directory
+    mode: '0755'
+
+- name: Deploy Neofetch configuration
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/neofetch/config.conf"
+    dest: ~/.config/neofetch/config.conf
+    mode: '0644'
+
+- name: Ensure Fastfetch configuration directory exists
+  ansible.builtin.file:
+    path: ~/.config/fastfetch
+    state: directory
+    mode: '0755'
+
+- name: Deploy Fastfetch configuration
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/fastfetch/config.jsonc"
+    dest: ~/.config/fastfetch/config.jsonc
+    mode: '0644'
+
+- name: Deploy Topgrade configuration
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/topgrade.toml"
+    dest: ~/.config/topgrade.toml
+    mode: '0644'
+
+- name: Deploy iTerm2 configuration
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/com.googlecode.iterm2.plist"
+    dest: ~/Library/Preferences/com.googlecode.iterm2.plist
+    mode: '0600'
+
+- name: Ensure Go GOPATH and GOBIN are in PATH
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: 'export GOPATH=$HOME/go'
+    state: present
+
+- name: Ensure Go GOBIN is in PATH
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: 'export PATH=$PATH:$GOPATH/bin'
+    state: present

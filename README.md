@@ -17,6 +17,11 @@ This Ansible playbook automates the setup and configuration of a macOS environme
   - **PHP**: Updates global `composer` packages.
   - **PowerShell**: Updates all installed PowerShell modules.
   - **TLDR**: Automatically updates the `tldr` cache.
+- **Application Configurations**:
+  - **Go**: Installs Go and configures GOPATH and GOBIN in Zsh.
+  - **Neofetch & Fastfetch**: Backs up and restores your custom system-info display themes.
+  - **iTerm2**: Backs up and restores your iTerm2 preferences (plist).
+  - **Topgrade**: Backs up and restores your cross-platform update manager configuration.
 
 ## Prerequisites
 
